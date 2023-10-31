@@ -2,7 +2,7 @@
 #include "Greeting.h"
 #include <eiface.h>
 
-extern IVEngineServer* engine; // Assuming engine is defined and initialized elsewhere, like in your main plugin file.
+extern IVEngineServer2* engine;
 
 void Greeting::FireGameEvent(IGameEvent* event)
 {
