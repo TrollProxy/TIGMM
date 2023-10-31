@@ -337,12 +337,12 @@ const char* MiniVIP::GetAuthor()
 
 const char* MiniVIP::GetDescription()
 {
-	return "TIG System";
+	return "TIG Server Tools";
 }
 
 const char* MiniVIP::GetName()
 {
-	return "TIG System";
+	return "The Impractical Gamers - Server Tools";
 }
 
 const char* MiniVIP::GetURL()
