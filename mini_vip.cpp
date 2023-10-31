@@ -31,10 +31,24 @@ CRoundPreStartEvent g_RoundPreStartEvent;
 CEntityListener g_EntityListener;
 bool g_bPistolRound;
 std::map<uint32, VipPlayer> g_VipPlayers;
+CPlayerConnectEvent g_PlayerConnectEvent;
+
 
 class GameSessionConfiguration_t { };
 SH_DECL_HOOK3_void(INetworkServerService, StartupServer, SH_NOATTRIB, 0, const GameSessionConfiguration_t&, ISource2WorldSession*, const char*);
 SH_DECL_HOOK3_void(IServerGameDLL, GameFrame, SH_NOATTRIB, 0, bool, bool, bool);
+
+void CPlayerConnectEvent::FireGameEvent(IGameEvent* event)
+{
+    if (Q_strcmp(event->GetName(), "player_connect") == 0)
+    {
+        int userid = event->GetInt("userid");
+        const char* name = event->GetString("name");
+        char message[128];
+        Q_snprintf(message, sizeof(message), "Welcome to the server, %s!", name);
+        engine->ClientPrintf(engine->IndexOfEdict(engine->PEntityOfEntIndex(userid)), message);
+    }
+}
 
 bool MiniVIP::Load(PluginId id, ISmmAPI* ismm, char* error, size_t maxlen, bool late)
 {
@@ -65,7 +79,7 @@ bool MiniVIP::Load(PluginId id, ISmmAPI* ismm, char* error, size_t maxlen, bool 
 	SH_ADD_HOOK(IServerGameDLL, GameFrame, g_pSource2Server, SH_MEMBER(this, &MiniVIP::GameFrame), true);
 
 	gameeventmanager = static_cast<IGameEventManager2*>(CallVFunc<IToolGameEventAPI*, 91>(g_pSource2Server));
-
+	gameeventmanager->AddListener(&g_PlayerConnectEvent, "player_connect", false);
 	ConVar_Register(FCVAR_GAMEDLL);
 
 	return true;
@@ -80,7 +94,7 @@ bool MiniVIP::Unload(char *error, size_t maxlen)
 	gameeventmanager->RemoveListener(&g_RoundPreStartEvent);
 
 	g_pGameEntitySystem->RemoveListenerEntity(&g_EntityListener);
-
+	gameeventmanager->RemoveListener(&g_PlayerConnectEvent);
 	ConVar_Unregister();
 	
 	return true;
