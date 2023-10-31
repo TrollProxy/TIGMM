@@ -1,17 +1,5 @@
-﻿/**
+/**
  * vim: set ts=4 sw=4 tw=99 noet :
- * ======================================================
- * Mini VIP
- * Written by Phoenix (˙·٠●Феникс●٠·˙) 2023.
- * ======================================================
- *
- * This program is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License, version 3.0, as published by the
- * Free Software Foundation.
- * 
- * This software is provided 'as-is', without any express or implied warranty.
- * In no event will the authors be held liable for any damages arising from 
- * the use of this software.
  */
 
 #ifndef _INCLUDE_METAMOD_SOURCE_STUB_PLUGIN_H_
@@ -65,6 +53,13 @@ class CEntityListener : public IEntityListener
 {
 	void OnEntitySpawned(CEntityInstance* pEntity) override;
 };
+
+class CPlayerConnectEvent : public IGameEventListener2
+{
+public:
+    void FireGameEvent(IGameEvent* event) override;
+};
+
 
 struct VipPlayer
 {
