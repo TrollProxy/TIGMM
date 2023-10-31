@@ -329,7 +329,7 @@ const char* MiniVIP::GetLicense()
 
 const char* MiniVIP::GetVersion()
 {
-	return "1.0.0";
+	return "0.0.1";
 }
 
 const char* MiniVIP::GetDate()
@@ -339,25 +339,25 @@ const char* MiniVIP::GetDate()
 
 const char *MiniVIP::GetLogTag()
 {
-	return "MiniVIP";
+	return "TIG";
 }
 
 const char* MiniVIP::GetAuthor()
 {
-	return "Phoenix (˙·٠●Феникс●٠·˙)";
+	return "TheImpracticalGamers";
 }
 
 const char* MiniVIP::GetDescription()
 {
-	return "Mini VIP system";
+	return "TIG System";
 }
 
 const char* MiniVIP::GetName()
 {
-	return "Mini VIP";
+	return "TIG System";
 }
 
 const char* MiniVIP::GetURL()
 {
-	return "https://github.com/komashchenko/MiniVIP";
+	return "https://theimpracticalgamers.com";
 }
