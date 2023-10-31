@@ -1,17 +1,5 @@
 /**
  * vim: set ts=4 sw=4 tw=99 noet :
- * ======================================================
- * Mini VIP
- * Written by Phoenix (˙·٠●Феникс●٠·˙) 2023.
- * ======================================================
- *
- * This program is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License, version 3.0, as published by the
- * Free Software Foundation.
- *
- * This software is provided 'as-is', without any express or implied warranty.
- * In no event will the authors be held liable for any damages arising from
- * the use of this software.
  */
 
 #include <stdio.h>
@@ -28,10 +16,8 @@
 #include "sdk/CCSPlayer_ItemServices.h"
 #include "sdk/CSmokeGrenadeProjectile.h"
 #include <map>
-#include "Greeting.h"
 
 MiniVIP g_MiniVIP;
-Greeting g_Greeting;
 PLUGIN_EXPOSE(MiniVIP, g_MiniVIP);
 IVEngineServer2* engine = nullptr;
 IGameEventManager2* gameeventmanager = nullptr;
@@ -60,7 +46,7 @@ bool MiniVIP::Load(PluginId id, ISmmAPI* ismm, char* error, size_t maxlen, bool 
 	GET_V_IFACE_CURRENT(GetEngineFactory, g_pNetworkServerService, INetworkServerService, NETWORKSERVERSERVICE_INTERFACE_VERSION);
 	GET_V_IFACE_CURRENT(GetEngineFactory, g_pGameResourceService, IGameResourceServiceServer, GAMERESOURCESERVICESERVER_INTERFACE_VERSION);
 	GET_V_IFACE_CURRENT(GetFileSystemFactory, g_pFullFileSystem, IFileSystem, FILESYSTEM_INTERFACE_VERSION);
-	
+
 	// Get CSchemaSystem
 	{
 		HINSTANCE m_hModule = dlmount(WIN_LINUX("schemasystem.dll", "libschemasystem.so"));
@@ -79,7 +65,7 @@ bool MiniVIP::Load(PluginId id, ISmmAPI* ismm, char* error, size_t maxlen, bool 
 	SH_ADD_HOOK(IServerGameDLL, GameFrame, g_pSource2Server, SH_MEMBER(this, &MiniVIP::GameFrame), true);
 
 	gameeventmanager = static_cast<IGameEventManager2*>(CallVFunc<IToolGameEventAPI*, 91>(g_pSource2Server));
-	gameeventmanager->AddListener(&g_Greeting, "player_connect", false);
+
 	ConVar_Register(FCVAR_GAMEDLL);
 
 	return true;
